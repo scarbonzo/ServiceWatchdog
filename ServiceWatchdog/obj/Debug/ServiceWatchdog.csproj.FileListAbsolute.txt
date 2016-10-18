@@ -1,0 +1,13 @@
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\ServiceWatchdog.exe.config
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\ServiceWatchdog.exe
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\ServiceWatchdog.pdb
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.csprojResolveAssemblyReference.cache
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.Form1.resources
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.Properties.Resources.resources
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.csproj.GenerateResource.Cache
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.exe
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\obj\Debug\ServiceWatchdog.pdb
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\Microsoft.Exchange.WebServices.dll
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\Microsoft.Exchange.WebServices.xml
+C:\Users\reodice.LSNJ\OneDrive\VS Projects\cs7\ServiceWatchdog\ServiceWatchdog\bin\Debug\Microsoft.Exchange.WebServices.Auth.xml
