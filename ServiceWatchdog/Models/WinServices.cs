@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceProcess;
+using System.IO;
 
 namespace ServiceWatchdog.Models
 {
@@ -75,6 +76,35 @@ namespace ServiceWatchdog.Models
                 if (service.RECOVERED)
                     service.SendAlertUp();
             }
+        }
+
+        public static List<Service> LoadServicesFromFile(string Filename)
+        {
+            List<Service> _services = new List<Service>();
+
+            try
+            {
+                if(File.Exists(Filename))
+                {
+                    string[] lines = File.ReadAllLines(Filename);
+                    foreach(string line in lines)
+                    {
+                        if(!line.Contains('#'))
+                        {
+                            string[] fields = line.Split(',');
+                            try
+                            {
+                                _services.Add(new Service(fields[1], fields[0], true, fields[2], fields[3], fields[4], Convert.ToInt32(fields[5])));
+                            }
+                            catch { }
+                        }
+                    }
+                }
+
+            }
+            catch { }
+
+            return _services;
         }
     }
 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbServicesToMonitor = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +37,8 @@
             this.lvServiceStatus = new System.Windows.Forms.ListView();
             this.timerAlert = new System.Windows.Forms.Timer(this.components);
             this.cbAlerts = new System.Windows.Forms.CheckBox();
+            this.tbFileName = new System.Windows.Forms.TextBox();
+            this.btnLoadFromFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbServicesToMonitor
@@ -47,7 +48,6 @@
             this.tbServicesToMonitor.Name = "tbServicesToMonitor";
             this.tbServicesToMonitor.Size = new System.Drawing.Size(309, 531);
             this.tbServicesToMonitor.TabIndex = 0;
-            this.tbServicesToMonitor.Text = resources.GetString("tbServicesToMonitor.Text");
             // 
             // label1
             // 
@@ -112,12 +112,32 @@
             this.cbAlerts.UseVisualStyleBackColor = true;
             this.cbAlerts.CheckedChanged += new System.EventHandler(this.cbAlerts_CheckedChanged);
             // 
+            // tbFileName
+            // 
+            this.tbFileName.Location = new System.Drawing.Point(414, 13);
+            this.tbFileName.Name = "tbFileName";
+            this.tbFileName.Size = new System.Drawing.Size(292, 21);
+            this.tbFileName.TabIndex = 9;
+            this.tbFileName.Text = "\\\\lsnjmonitor\\e$\\ServicesToMonitor.ini";
+            // 
+            // btnLoadFromFile
+            // 
+            this.btnLoadFromFile.Location = new System.Drawing.Point(712, 11);
+            this.btnLoadFromFile.Name = "btnLoadFromFile";
+            this.btnLoadFromFile.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadFromFile.TabIndex = 10;
+            this.btnLoadFromFile.Text = "Load";
+            this.btnLoadFromFile.UseVisualStyleBackColor = true;
+            this.btnLoadFromFile.Click += new System.EventHandler(this.btnLoadFromFile_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(859, 603);
+            this.Controls.Add(this.btnLoadFromFile);
+            this.Controls.Add(this.tbFileName);
             this.Controls.Add(this.cbAlerts);
             this.Controls.Add(this.lvServiceStatus);
             this.Controls.Add(this.btnStartStop);
@@ -143,6 +163,8 @@
         private System.Windows.Forms.ListView lvServiceStatus;
         private System.Windows.Forms.Timer timerAlert;
         private System.Windows.Forms.CheckBox cbAlerts;
+        private System.Windows.Forms.TextBox tbFileName;
+        private System.Windows.Forms.Button btnLoadFromFile;
     }
 }
 

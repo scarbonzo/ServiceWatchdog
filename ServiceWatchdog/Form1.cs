@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ServiceWatchdog
 {
@@ -76,6 +77,20 @@ namespace ServiceWatchdog
         private void cbAlerts_CheckedChanged(object sender, EventArgs e)
         {
             timerAlert.Enabled = cbAlerts.Checked; //Enable and disable alerting based on checkbox status
+        }
+
+        private void btnLoadFromFile_Click(object sender, EventArgs e)
+        {
+            tbServicesToMonitor.Text = "";
+
+            if (File.Exists(tbFileName.Text))
+            {
+                Services = WinServices.LoadServicesFromFile(tbFileName.Text);
+                foreach (Service service in Services)
+                    tbServicesToMonitor.AppendText(service.MACHINENAME + "," + service.SERVICENAME + Environment.NewLine);
+            }
+            else
+                MessageBox.Show("Error Loading File...");
         }
     }
 }
