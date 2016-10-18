@@ -16,17 +16,17 @@ namespace ServiceWatchdog.Models
             switch (sc.Status)
             {
                 case ServiceControllerStatus.Running:
-                    return "Running";
+                    return "RUNNING";
                 case ServiceControllerStatus.Stopped:
-                    return "Stopped";
+                    return "STOPPED";
                 case ServiceControllerStatus.Paused:
-                    return "Paused";
+                    return "PAUSED";
                 case ServiceControllerStatus.StopPending:
-                    return "Stopping";
+                    return "STOPPING";
                 case ServiceControllerStatus.StartPending:
-                    return "Starting";
+                    return "STARTING";
                 default:
-                    return "Status Changing";
+                    return "STATUS CHANGING";
             }
         }
 
@@ -37,7 +37,7 @@ namespace ServiceWatchdog.Models
             foreach (Service service in Services)
             {
                 service.CheckStatus();
-                _status.Add(service.MACHINENAME + " : " + service.SERVICENAME + " is " + service.STATUS);
+                _status.Add(service.MACHINENAME + " : '" + service.SERVICENAME + "' is '" + service.STATUS + "' as of " + service.LASTCHECKED.ToString());
             }
 
             return _status;
@@ -49,12 +49,33 @@ namespace ServiceWatchdog.Models
 
             foreach (string service in ServiceArray)
             {
-                string[] fields = service.Split(',');
-                _services.Add(new Service(fields[1], fields[0])); //Assumes the following format -- MACHINENAME,SERVICENAME
+                try
+                {
+                    string[] fields = service.Split(',');
+                    _services.Add(new Service(fields[1], fields[0])); //Assumes the following format -- MACHINENAME,SERVICENAME
+                }
+                catch { }
             }
 
             return _services;
         } //Use this function to create a List of Service objects from a string array (e.g. Multiline Textbox)
+
+        public static void GenerateAlerts(List<Service> Services)
+        {
+            foreach (Service service in Services)
+            {
+                int MinutesSinceLastAlert = (int)DateTime.Now.Subtract(service.LASTALERT).TotalMinutes;
+
+                if (service.ACTIVE && service.STATUS != "RUNNING" && (MinutesSinceLastAlert > service.HOLDDOWNTIMER) && !service.MUTED)
+                {
+                    service.SendAlertDown();
+                    service.LASTALERT = DateTime.Now;
+                }
+
+                if (service.RECOVERED)
+                    service.SendAlertUp();
+            }
+        }
     }
 
     public class Service
@@ -62,19 +83,71 @@ namespace ServiceWatchdog.Models
         public string MACHINENAME { get; set; } //Reachable Name of the machine (IP, NETBIOS, DNS, etc.)
         public string SERVICENAME { get; set; } //Actual Service name
         public string STATUS { get; set; }
+        public bool ACTIVE { get; set; }
+        public DateTime LASTCHECKED { get; set; }
+        public DateTime LASTALERT { get; set; }
+        public bool CHANGED { get; set; }
+        public string SMTPRELAY { get; set; }
+        public string ALERTADDRESS { get; set; }
+        public string FROMADDRESS { get; set; }
+        public int HOLDDOWNTIMER { get; set; }
+        public bool MUTED { get; set; }
+        public bool RECOVERED { get; set; }
 
-        public Service(string ServiceName, string MachineName = "LOCALHOST")
+        public Service(string ServiceName, string MachineName = "LOCALHOST", bool Active = true, string SMTPRelay = "relay.lsnj.org", string AlertAddress = "reodice@lsnj.org", string FromAddress = "alerts@lsnj.org", int HolddownTimer = 60, bool Muted = false)
         {
             SERVICENAME = ServiceName;
             MACHINENAME = MachineName;
             STATUS = WinServices.GetServiceStatus(SERVICENAME, MACHINENAME);
+            LASTCHECKED = DateTime.Now;
+            ACTIVE = Active;
+            SMTPRELAY = SMTPRelay;
+            ALERTADDRESS = AlertAddress;
+            FROMADDRESS = FromAddress;
+            HOLDDOWNTIMER = HolddownTimer;
+            MUTED = Muted;
+            RECOVERED = false;
         }
 
         public void CheckStatus()
         {
-            STATUS = WinServices.GetServiceStatus(SERVICENAME, MACHINENAME);
+            string NEWSTATUS = WinServices.GetServiceStatus(SERVICENAME, MACHINENAME);
+
+            if (STATUS != "RUNNING" && NEWSTATUS == "RUNNING")
+                RECOVERED = true;
+
+            if (STATUS != NEWSTATUS)
+                CHANGED = true;
+            else
+                CHANGED = false;
+
+            STATUS = NEWSTATUS;
+            LASTCHECKED = DateTime.Now;
         }
 
+        public void SendAlertDown()
+        {
+            if(ACTIVE)
+            {
+                string Subject = MACHINENAME + " : " + SERVICENAME + " is " + STATUS;
+                string Body = MACHINENAME + " : " + SERVICENAME + " is " + STATUS;
+
+                EmailHelper.SendEmail(FROMADDRESS, ALERTADDRESS, SMTPRELAY, Subject, Body);
+                LASTALERT = DateTime.Now;
+            }
+        }
+
+        public void SendAlertUp()
+        {
+            if (ACTIVE)
+            {
+                string Subject = MACHINENAME + " : " + SERVICENAME + " is " + STATUS;
+                string Body = MACHINENAME + " : " + SERVICENAME + " is " + STATUS;
+
+                EmailHelper.SendEmail(FROMADDRESS, ALERTADDRESS, SMTPRELAY, Subject, Body);
+                RECOVERED = false;
+            }
+        }
 
     }
 }

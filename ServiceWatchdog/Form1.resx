@@ -119,22 +119,25 @@
   </resheader>
   <data name="tbServicesToMonitor.Text" xml:space="preserve">
     <value>LSNJEXMBX1,MSExchangeIS
-LSNJEXMBX2,MSExchangeIS
-LSNJEXMBX3,MSExchangeIS
 LSNJEXMBX1,MSExchangeSA
-LSNJEXMBX2,MSExchangeSA
-LSNJEXMBX3,MSExchangeSA
 LSNJEXMBX1,MSExchangeServiceHost
-LSNJEXMBX2,MSExchangeServiceHost
-LSNJEXMBX3,MSExchangeServiceHost
 LSNJEXMBX1,MSExchangeADTopology
-LSNJEXMBX2,MSExchangeADTopology
-LSNJEXMBX3,MSExchangeADTopology
 LSNJEXMBX1,IISADMIN
+LSNJEXMBX2,MSExchangeIS
+LSNJEXMBX2,MSExchangeSA
+LSNJEXMBX2,MSExchangeServiceHost
+LSNJEXMBX2,MSExchangeADTopology
 LSNJEXMBX2,IISADMIN
+LSNJEXMBX3,MSExchangeIS
+LSNJEXMBX3,MSExchangeSA
+LSNJEXMBX3,MSExchangeServiceHost
+LSNJEXMBX3,MSExchangeADTopology
 LSNJEXMBX3,IISADMIN</value>
   </data>
   <metadata name="timerUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="timerAlert.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>137, 17</value>
   </metadata>
 </root>
